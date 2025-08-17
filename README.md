@@ -1,72 +1,112 @@
 # Plant Disease Classification using ResNet-9
+>**This project enables real-time plant leaf disease classification in 10–20 seconds per image using a lightweight ResNet-9 deep learning model. The app and backend are fully integrated with [Hugging Face]([https://huggingface.co](https://huggingface.co/teamtezstory))—making rapid, reliable predictions possible from both mobile devices and web interfaces.**
 
-## 📌 Overview
-This project focuses on classifying plant diseases using a deep learning model based on ResNet-9. The goal is to distinguish between healthy and diseased crop leaves and, if diseased, identify the specific disease. The model is trained on an augmented dataset derived from the original PlantVillage Dataset, containing about 87K RGB images categorized into 38 classes.
+![Summer Plant Care Tips](https://yummycake.in/wp-content/uploads/2025/06/summer-plant-care-tips.jpg)
 
-## 🚀 Features
-- **Dataset**: The dataset includes 87K RGB images of healthy and diseased crop leaves, split into 80% training and 20% validation sets. An additional directory contains 33 test images for prediction.
-- **Model Architecture**: Utilizes ResNet-9, a lightweight variant of the ResNet architecture, optimized for efficient training and inference.
-- **Deployment**: The model is deployed using FastAPI for backend services and integrated into an Android app for mobile access.
-- **Exploratory Data Analysis (EDA)**: Comprehensive analysis of the dataset, including visualizations of class distributions and unique plant/disease counts.
+---
 
-## 📊 Dataset Description
-- **Source**: Derived from the [PlantVillage Dataset](https://github.com/spMohanty/PlantVillage-Dataset).
-- **Classes**: 38 unique classes (14 plants and 26 diseases, excluding healthy leaves).
-- **Splits**: 80% training, 20% validation, and a separate test set.
-- **Augmentation**: Offline augmentation applied to enhance dataset diversity.
+## Features
+- **High-Accuracy Model:** 97.7% verified on the PlantVillage dataset.
+- **FastAPI/Hugging Face Deployment:** REST API and web interface hosted via Hugging Face Spaces for easy, scalable access.
+- **Android App:** Instant leaf health prediction with the included `plantcare.apk`—using the Hugging Face API as backend.
+- **Comprehensive EDA:** Jupyter Notebook provided for dataset analysis and model development.
+- **Simple Integration:** REST API is accessible from browser, scripts, and mobile app.
 
-## 🛠️ Technologies Used
-- **Python**: Primary programming language.
-- **PyTorch**: Deep learning framework for model training.
-- **FastAPI**: Backend framework for deploying the model.
-- **Android Studio**: Used to develop the mobile application.
-- **Libraries**:
-  - `torch`, `torchvision` for deep learning.
-  - `PIL`, `matplotlib` for image processing and visualization.
-  - `pandas`, `numpy` for data manipulation.
+---
 
-## 📂 Project Structure
-1. **Data Exploration**:
-   - Load and analyze the dataset.
-   - Visualize class distributions and unique plant/disease counts.
-2. **Model Training**:
-   - Implement ResNet-9 architecture.
-   - Train the model on the augmented dataset.
-3. **FastAPI Deployment**:
-   - Set up a REST API to serve the model.
-   - Handle image uploads and return predictions.
-4. **Android App**:
-   - Develop an app to capture/upload leaf images.
-   - Display disease classification results.
+## 🚀 Hugging Face Demo Spaces
 
-## 🏆 Results
-- Achieved high accuracy in classifying plant diseases.
-- Successfully deployed the model for real-time predictions via FastAPI and Android app.
+**Try the live demos now:**
 
-## 📝 How to Use
-1. **Clone the Repository**:
-   ```bash
-   git clone <repository-url>
-   cd plant-disease-classification
-   ```
-2. **Install Dependencies**:
-   ```bash
-   pip install -r requirements.txt
-   ```
-3. **Run the FastAPI Server**:
-   ```bash
-   uvicorn main:app --reload
-   ```
-4. **Android App**:
-   - Open the project in Android Studio.
-   - Build and run the app on an emulator or device.
+### 1. Start `Plantcare` Space
+- [Plantcare Space](https://huggingface.co/spaces/teamtezstory/plantcare)
+- Identify plant diseases directly from browser via image upload.
+- Powered by FastAPI and PyTorch backend deployed on Hugging Face.
 
-## 🌟 Future Enhancements
-- Expand the dataset to include more plant species and diseases.
-- Optimize the model for edge devices to reduce inference time.
-- Add multilingual support in the Android app.
+### 2. Start `Plantcareapp` Space
+- [Plantcareapp Space](https://huggingface.co/spaces/teamtezstory/plantcareapp)
+- Mobile-friendly interface for quick leaf disease prediction.
+- The Android app can connect to this space for instant results.
 
-## 🙏 Acknowledgments
-- Thanks to the creators of the PlantVillage Dataset for providing the foundational data.
-- The FastAPI and Android communities for their excellent documentation and support.
+**How to test with your data:**
+- Use any test photo from your `/data/test` folder.
+- Upload the image to either Space and view prediction results (plant name, disease type, confidence).
+
+## How the Hugging Face Deployment Works
+
+- **API Endpoint**: The trained ResNet-9 model is exported and served via a FastAPI application deployed on Hugging Face Spaces.
+- **Android App**: Uses the Hugging Face Space's REST endpoint for prediction—simply install, capture leaf image, and get results.
+- **Web Demo**: Optionally, use the Hugging Face Space's GUI for browser-based predictions.
+
+---
+
+## Dataset Organization
+
+- **Source:** [PlantVillage Dataset](https://github.com/spMohanty/PlantVillage-Dataset)
+- **Folders:**
+```plaintext
+data/
+├── train/   # Training images (80%)
+├── valid/   # Validation images (20%)
+├── test/    # Real-world prediction set
+└── readme   # Dataset notes
+```
+- **Classes:** 38 (14 plants, 26 diseases)
+- **Preprocessing:** 256x256, augmented with flips, rotations, color jitter.
+
+---
+
+## Technologies
+
+- **Python 3.8+**
+- **PyTorch**
+- **FastAPI**
+- **Hugging Face Spaces**
+- **Android Studio** (`app/plantcare.apk`)
+- **Libraries:** torch, torchvision, PIL, matplotlib, pandas, numpy
+
+---
+
+## Usage Instructions
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/cloud073/Plant-Disease-Classification
+cd plant-disease-classification
+```
+
+### 2. Install Python Dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### 3. Prepare Data
+Place leaf images in the correct folders under `data/`.
+
+### 4. Train/Load Model
+Use `plant-disease-classification.ipynb` for training. Export model to `.pkl` or Hugging Face format.
+
+### 5. Deploy on Hugging Face Spaces
+- Push FastAPI code and model weights to a Hugging Face Space.
+
+### 6. Android & API Integration
+- Set Hugging Face Space API endpoint in the app's configuration or code.
+- For prediction:
+  - Capture/choose leaf image in Android app.
+  - The app sends the image to Hugging Face API.
+  - Prediction (plant species, disease type, confidence) returns within 10–20sec.
+---
+
+## Model Details
+
+- **Architecture:** ResNet-9, optimized for speed and edge/online deployment.
+- **Input:** RGB leaf images (256x256)
+- **Output:** Predicted plant, disease, confidence score (<20sec inference).
+
+---
+
+## Acknowledgments
+- [PlantVillage Dataset](https://github.com/spMohanty/PlantVillage-Dataset)
+- Hugging Face team and Spaces platform
+- FastAPI, PyTorch, and Android developer communities
 
